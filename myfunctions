@@ -1,0 +1,28 @@
+#!/bin/bash
+
+export PATH=$PATH:/bin:/usr/bin
+
+
+alias t='date +%Y%m%d-%H%M'
+alias weer='curl wttr.in/Amsterdam'
+alias phone-umount='fusermount -u ~/mnt'
+alias phone-mount='simple-mtpfs --device 1 ~/mnt'
+
+
+function yd {
+    url=$1
+    if [ -z "$url" ]; then
+        cat << EOF
+yd <youtube url>
+
+EOF
+    else
+        youtube-dl -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 -o "~/Downloads/Music/%(title)s.%(ext)s" ${url}
+    fi
+}
+
+
+function backup {
+    f=$1
+    tar czvf ${f}.$(date +%Y%m%d.%H%M).tar.gz ${f}
+}
